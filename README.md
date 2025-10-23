@@ -8,7 +8,7 @@ sdk_version: 1.49.1
 app_file: app.py
 pinned: false
 license: mit
-short_description: 'PDF Chat with AgenticAI. '
+short_description: 'An AI agent that lets you sleep while it conducts research.'
 ---
 
 # Agentic Workflows

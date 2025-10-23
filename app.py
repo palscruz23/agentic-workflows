@@ -28,7 +28,7 @@ def init_chatbot():
 
 def main():
     init_chatbot()
-    st.title("✍️ Research AssisTent Agent ⛺💤")
+    st.title("✍️ Research AssisTent Agent ⛺")
     st.subheader("An AI agent that lets you sleep while it conducts research, reviews content and generates reports.")
     st.markdown("Typical workflow takes 5-10 minutes.")
     topic = st.text_input("Enter your research topic", key="research_topic")
