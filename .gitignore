@@ -1,0 +1,8 @@
+.env
+utils
+tools/__pycache__/
+tools/.ipynb_checkpoints/
+knowledge base/
+.claude/
+.ipynb_checkpoints/
+agents/__pycache__/
