@@ -17,7 +17,7 @@ def writer_agent(task: str, model: str = "gpt-5-mini") -> str:
     print("✍️ Writer Agent")
     print("==================================")
     messages = [
-        {"role": "system", "content": "You are a writing agent specialized in generating well-structured academic or technical content. DO NOT provde recommendations for the next steps at the end. DO NOT ask any questions on the next steps at the end."},
+        {"role": "system", "content": "You are a writing agent specialized in generating well-structured academic or technical content.  Report contents are recommended to be in paragraph form except for reference section. DO NOT provide recommendations for the next steps at the end. DO NOT ask any questions on the next steps at the end."},
         {"role": "user", "content": task}
     ]
 

@@ -28,11 +28,13 @@ def init_chatbot():
 
 def main():
     init_chatbot()
-    st.title("Research Assistant Agent")
+    st.title("✍️ Research AssisTent Agent ⛺💤")
+    st.subheader("An AI agent that lets you sleep while it conducts research, reviews content and generates reports.")
+    st.markdown("Typical workflow takes 5-10 minutes.")
     topic = st.text_input("Enter your research topic", key="research_topic")
     if topic:
         start_time = time.time()
-        with st.spinner("Planning...", show_time=True):
+        with st.spinner("Planning tasks...", show_time=True):
             steps = planner_agent(topic)
         executor_history, total_used_token = executor_agent(steps)
         st.session_state.expanders.write(f"Total Used Tokens: {total_used_token}")
@@ -40,5 +42,4 @@ def main():
         st.session_state.expanders.write(f"Total Elapsed Time: {elapsed_time:.2f} seconds")
         st.container(border=True).markdown(executor_history[-1][-1].strip("`"))
 if __name__ == "__main__":
-    st.session_state.num_chat_messages = 5
     main()

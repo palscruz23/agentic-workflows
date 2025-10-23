@@ -6,3 +6,4 @@ knowledge base/
 .claude/
 .ipynb_checkpoints/
 agents/__pycache__/
+archive/

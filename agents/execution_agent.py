@@ -51,21 +51,9 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
     total_used_token = 0
     with st.session_state.expanders:
         for i, step in enumerate(plan_steps):
-            st.markdown("""
-            <style>
-            [data-testid="stVerticalBlock"] > [style*="flex-direction: column;"] > [data-testid="stVerticalBlock"] {
-                background-color: #f0f8ff;
-                padding: 20px;
-                border-radius: 10px;
-            }
-            </style>
-        """, unsafe_allow_html=True)
             st.session_state.steps[i] = st.container(border=True)
             st.session_state.steps[i].write(f"Step {i+1}: {step}")
     
-    return None, None
-
-
     for i, step in enumerate(plan_steps):
         # Paso 1: Determinar el agente y la tarea
         agent_decision_prompt = f"""
@@ -117,15 +105,19 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
                     output, used_token = agent_registry[agent_name](enriched_task)
                     history.append((step, agent_name, output))
                     total_used_token += used_token
-                    print(f"✅ Agent Used Token:\n{used_token}")
+                    print(f"✅ Agent Used Tokens:\n{used_token}")
                     elapsed_time = time.time() - start_time
                     print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
                     st.session_state.steps[i].write(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
         else:
-            output, used_token = f"⚠️ Unknown agent: {agent_name}"
-            history.append((step, agent_name, output))
-            total_used_token += used_token
-            print(f"✅ Agent Used Token:\n{used_token}")
+            with st.spinner(f"Executing... ", show_time=True):
+                output, used_token = f"⚠️ Unknown agent: {agent_name}"
+                history.append((step, agent_name, output))
+                total_used_token += used_token
+                print(f"✅ Agent Used Tokens:\n{used_token}")
+                elapsed_time = time.time() - start_time
+                print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
+                st.session_state.steps[i].write(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
             
     print(f"✅ Output:\n{output}")
     print(f"✅ Total Used Token:\n{total_used_token}")
