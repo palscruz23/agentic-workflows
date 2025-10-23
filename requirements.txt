@@ -3,3 +3,4 @@ markdown
 streamlit
 python-dotenv
 pandas
+tavily
