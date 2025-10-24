@@ -8,7 +8,7 @@ sdk_version: 1.50.1
 app_file: app.py
 pinned: false
 license: mit
-short_description: 'Medical researcher that searches credible medical references.'
+short_description: 'Medical researcher with credible medical references.'
 ---
 
 # Agentic Workflows
