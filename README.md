@@ -1,14 +1,14 @@
 ---
-title: Research AssisTent
-emoji: ✍️
-colorFrom: indigo
+title: Dr ResearchRx
+emoji: 🔍
+colorFrom: slate
 colorTo: blue
 sdk: streamlit
-sdk_version: 1.49.1
+sdk_version: 1.50.1
 app_file: app.py
 pinned: false
 license: mit
-short_description: 'An AI agent that lets you sleep while it conducts research.'
+short_description: 'Medical research assistant that searches credible medical references while you focus on what matters.'
 ---
 
 # Agentic Workflows
