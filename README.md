@@ -1,14 +1,14 @@
 ---
 title: Dr ResearchRx
 emoji: 🔍
-colorFrom: slate
-colorTo: blue
+colorFrom: blue
+colorTo: gray
 sdk: streamlit
 sdk_version: 1.50.1
 app_file: app.py
 pinned: false
 license: mit
-short_description: 'Medical research assistant that searches credible medical references while you focus on what matters.'
+short_description: 'Medical research assistant that searches credible medical references.'
 ---
 
 # Agentic Workflows
