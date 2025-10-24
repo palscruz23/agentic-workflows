@@ -29,7 +29,7 @@ def init_chatbot():
 def main():
     init_chatbot()
     st.title("🔍 Dr. ResearchRx⚕️")
-    st.subheader("Medical research assistant that searches credible medical references while you focus on what matters.")
+    st.subheader("Medical researcher that searches credible medical references while you focus on what matters.")
     st.markdown("Typical workflow takes 5 minutes.")
     topic = st.text_input("Enter your medical topic", key="research_topic")
     if topic:
