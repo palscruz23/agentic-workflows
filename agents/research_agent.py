@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from tools import research_tools
+from tools import medical_tools
 import streamlit as st  
 from openai import OpenAI
 from dotenv import find_dotenv, load_dotenv
@@ -31,20 +32,19 @@ Limit tool calling into {max_tool_call} maximum.
 
 """
     def run_tool(name, args):
-        if name == "arxiv_search_tool":
-            return research_tools.arxiv_search_tool(**args)
-        if name == "tavily_search_tool":
-            return research_tools.tavily_search_tool(**args)
-        if name == "wikipedia_search_tool":
-            return research_tools.wikipedia_search_tool(**args)
+        if name == "pubmed_search_tool":
+            return medical_tools.pubmed_search_tool(**args)
+        if name == "cochrane_search_tool":
+            return medical_tools.cochrane_search_tool(**args)
+        if name == "medical_search_tool":
+            return medical_tools.medical_search_tool(**args)
         return {"error": f"Unknown tool: {name}"}
 
     messages = [
         {"role": "system", "content": """
             You are an expert researcher specialized in gathering academic or technical content. You have access to the following tools:
-            - arxiv_tool: for finding academic papers
-            - tavily_tool: for general web search
-            - wikipedia_tool: for encyclopedic knowledge 
+            - pubmed_search_tool: Searches specifically on PubMed (pubmed.ncbi.nlm.nih.gov) and returns medical research papers and publications.
+            - cochrane_search_tool: Searches specifically on Cochrane Library (cochranelibrary.com) and returns systematic reviews and evidence-based medical information.
             ✅ Make the research concise.
             🚫 DO NOT provde recommendations for the next steps at the end. 
             🚫 DO NOT ask any questions on the next steps at the end.
@@ -101,3 +101,26 @@ Limit tool calling into {max_tool_call} maximum.
     except Exception as e:
         print("❌ Error:", e)
         return f"[Model Error: {str(e)}]"
+
+
+
+# # Research agent:
+#     messages = [
+#         {"role": "system", "content": """
+#             You are an expert researcher specialized in gathering academic or technical content. You have access to the following tools:
+#             - arxiv_tool: for finding academic papers
+#             - tavily_tool: for general web search
+#             - wikipedia_tool: for encyclopedic knowledge 
+#             ✅ Make the research concise.
+#             🚫 DO NOT provde recommendations for the next steps at the end. 
+#             🚫 DO NOT ask any questions on the next steps at the end.
+#             """},
+#         {"role": "user", "content":prompt.strip()}]
+#     tools = [research_tools.arxiv_tool_def, research_tools.tavily_tool_def, research_tools.wikipedia_tool_def]
+#     try:
+#         response = client.chat.completions.create(
+#             model=model,
+#             messages=messages,
+#             tools=tools,
+#             tool_choice="auto"
+#         )

@@ -21,7 +21,6 @@ agent_registry = {
     "research_agent": research_agent,
     "editor_agent": editor_agent,
     "writer_agent": writer_agent,
-    # puedes agregar más si lo deseas
 }
 
 

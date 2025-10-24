@@ -26,7 +26,7 @@ def planner_agent(topic: str, model: str = "gpt-5", max_steps: int = 5) -> list[
 You are a planning agent responsible for organizing a research workflow with multiple intelligent agents.
 
 🧠 Available agents:
-- A research agent who can search the web, Wikipedia, and arXiv.
+- A research agent who can search the medical publication websites.
 - A writer agent who can draft research summaries.
 - An editor agent who can reflect, critique and improve existing drafts. 
 

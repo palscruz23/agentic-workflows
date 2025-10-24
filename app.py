@@ -28,10 +28,10 @@ def init_chatbot():
 
 def main():
     init_chatbot()
-    st.title("✍️ Research AssisTent Agent ⛺")
-    st.subheader("An AI agent that lets you sleep while it conducts research, reviews content and generates reports.")
-    st.markdown("Typical workflow takes 5-10 minutes.")
-    topic = st.text_input("Enter your research topic", key="research_topic")
+    st.title("🔍 Dr. ResearchRx⚕️")
+    st.subheader("Medical research assistant that searches credible medical references while you focus on what matters.")
+    st.markdown("Typical workflow takes 5 minutes.")
+    topic = st.text_input("Enter your medical topic", key="research_topic")
     if topic:
         start_time = time.time()
         with st.spinner("Planning tasks...", show_time=True):
