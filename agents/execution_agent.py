@@ -1,4 +1,3 @@
-
 import json
 import re
 from datetime import datetime
@@ -107,7 +106,7 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
                     print(f"✅ Agent Used Tokens:\n{used_token}")
                     elapsed_time = time.time() - start_time
                     print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
-                    st.session_state.steps[i].write(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
+                    st.success(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
         else:
             with st.spinner(f"Executing... ", show_time=True):
                 output, used_token = f"⚠️ Unknown agent: {agent_name}"
@@ -116,10 +115,9 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
                 print(f"✅ Agent Used Tokens:\n{used_token}")
                 elapsed_time = time.time() - start_time
                 print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
-                st.session_state.steps[i].write(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
+                st.success(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
             
     print(f"✅ Output:\n{output}")
     print(f"✅ Total Used Token:\n{total_used_token}")
         
     return history, total_used_token
-
