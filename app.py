@@ -23,6 +23,7 @@ def init_chatbot():
 
     if "client" not in st.session_state:
         st.session_state.client = OpenAI()
+        st.session_state.model = "gpt-5-mini"
         # Set the client globally for all agents
         # agents.set_client(st.session_state.client)
 

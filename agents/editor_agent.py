@@ -6,6 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 if "client" not in st.session_state:
     st.session_state.client = OpenAI()
+    
 # Global client - will be set by parent module
 client = st.session_state.client
 

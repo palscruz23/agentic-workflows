@@ -36,8 +36,8 @@ Limit tool calling into {max_tool_call} maximum.
             return medical_tools.pubmed_search_tool(**args)
         if name == "cochrane_search_tool":
             return medical_tools.cochrane_search_tool(**args)
-        if name == "medical_search_tool":
-            return medical_tools.medical_search_tool(**args)
+        # if name == "medical_search_tool":
+        #     return medical_tools.medical_search_tool(**args)
         return {"error": f"Unknown tool: {name}"}
 
     messages = [
@@ -50,7 +50,7 @@ Limit tool calling into {max_tool_call} maximum.
             🚫 DO NOT ask any questions on the next steps at the end.
             """},
         {"role": "user", "content":prompt.strip()}]
-    tools = [research_tools.arxiv_tool_def, research_tools.tavily_tool_def, research_tools.wikipedia_tool_def]
+    tools = [medical_tools.pubmed_tool_def, medical_tools.cochrane_tool_def]
     try:
         response = client.chat.completions.create(
             model=model,
@@ -100,8 +100,7 @@ Limit tool calling into {max_tool_call} maximum.
 
     except Exception as e:
         print("❌ Error:", e)
-        return f"[Model Error: {str(e)}]"
-
+        return f"[Model Error: {str(e)}]", None
 
 
 # # Research agent:
