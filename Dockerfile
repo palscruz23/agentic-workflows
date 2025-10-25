@@ -20,4 +20,4 @@ EXPOSE 8501
 # e.g. ENV STREAMLIT_SERVER_ENABLECORS=false
 
 # Command to run the app
-CMD ["streamlit", "run", "About.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
