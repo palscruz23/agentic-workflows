@@ -135,11 +135,65 @@ streamlit run app.py
 
 The application will open in your default browser at `http://localhost:8501`
 
+### 🐳 Docker Deployment
+
+You can also run the application using Docker for a containerized deployment:
+
+**Option 1: Using Docker Compose (Recommended)**
+
+1. **Create `.env` file** with your API keys:
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+```
+
+2. **Build and run with Docker Compose:**
+```bash
+docker-compose up -d
+```
+
+3. **Access the application:**
+Open your browser at `http://localhost:8501`
+
+4. **Stop the container:**
+```bash
+docker-compose down
+```
+
+**Option 2: Using Docker directly**
+
+1. **Build the Docker image:**
+```bash
+docker build -t agentic-workflow .
+```
+
+2. **Run the container:**
+```bash
+docker run -d \
+  -p 8501:8501 \
+  -e OPENAI_API_KEY=your_openai_api_key_here \
+  -e TAVILY_API_KEY=your_tavily_api_key_here \
+  --name agentic-research \
+  agentic-workflow
+```
+
+3. **View logs:**
+```bash
+docker logs -f agentic-research
+```
+
+4. **Stop the container:**
+```bash
+docker stop agentic-research
+docker rm agentic-research
+```
+
 ## 📂 Project Structure
 
 ```
 agentic-workflow/
 ├── app.py                      # Landing page (main entry point)
+├── About.py                    # About page with workflow details
 ├── pages/
 │   ├── 1_Research Assistant.py # General academic research
 │   └── 2_Clinical Evidence.py  # Medical research
@@ -154,6 +208,9 @@ agentic-workflow/
 │   ├── research_tools.py       # arXiv, Tavily, Wikipedia search tools
 │   └── medical_tools.py        # PubMed, Cochrane search tools
 ├── requirements.txt            # Python dependencies
+├── Dockerfile                  # Docker image configuration
+├── docker-compose.yml          # Docker Compose configuration
+├── .dockerignore              # Docker build ignore file
 ├── .env                        # Environment variables (create this)
 └── README.md                   # This file
 ```
