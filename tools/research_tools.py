@@ -21,7 +21,7 @@ def arxiv_search_tool(query: str, max_results: int = 5) -> list[dict]:
     """
     Searches arXiv for research papers matching the given query.
     """
-    max_results = 3
+    max_results = min(max_results, 5)
     url = f"https://export.arxiv.org/api/query?search_query=all:{query}&start=0&max_results={max_results}"
 
     try:
@@ -99,7 +99,7 @@ def tavily_search_tool(query: str, max_results: int = 5, include_images: bool = 
     Returns:
         list[dict]: A list of dictionaries with keys like 'title', 'content', and 'url'.
     """
-    max_results = 3
+    max_results = min(max_results, 5)
     params = {}
     api_key = os.getenv("TAVILY_API_KEY")
     if not api_key:
@@ -180,8 +180,7 @@ def wikipedia_search_tool(query: str, sentences: int = 5) -> list[dict]:
     Returns:
         list[dict]: A list with a single dictionary containing title, summary, and URL.
     """
-    sentences = 3
-    
+    sentences = min(sentences, 5)
     try:
         page_title = wikipedia.search(query)[0]
         page = wikipedia.page(page_title)

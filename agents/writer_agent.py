@@ -1,18 +1,17 @@
-import streamlit as st  
+import streamlit as st
 from openai import OpenAI
 from dotenv import find_dotenv, load_dotenv
 
 # Load environment variables
 load_dotenv(find_dotenv())
-if "client" not in st.session_state:
-    st.session_state.client = OpenAI()
-# Global client - will be set by parent module
-client = st.session_state.client
 
 def writer_agent(task: str, model: str = "gpt-5-mini") -> str:
     """
     Executes writing tasks, such as drafting, expanding, or summarizing text.
     """
+    # Get client from session state
+    client = st.session_state.get("client") or OpenAI()
+
     print("==================================")
     print("✍️ Writer Agent")
     print("==================================")

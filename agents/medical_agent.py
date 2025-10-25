@@ -10,15 +10,15 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 
 def run_tool(name, args):
-    if name == "arxiv_search_tool":
-        return research_tools.arxiv_search_tool(**args)
-    if name == "tavily_search_tool":
-        return research_tools.tavily_search_tool(**args)
-    if name == "wikipedia_search_tool":
-        return research_tools.wikipedia_search_tool(**args)
+    if name == "pubmed_search_tool":
+        return medical_tools.pubmed_search_tool(**args)
+    if name == "cochrane_search_tool":
+        return medical_tools.cochrane_search_tool(**args)
+    # if name == "medical_search_tool":
+    #     return medical_tools.medical_search_tool(**args)
     return {"error": f"Unknown tool: {name}"}
 
-def research_agent(task: str, model: str = "gpt-4o-mini", max_tool_call: int = 3):
+def medical_agent(task: str, model: str = "gpt-4o-mini", max_tool_call: int = 3):
     """
     Execute a research task using tools with aisuite (without manual loop).
     """
@@ -26,11 +26,11 @@ def research_agent(task: str, model: str = "gpt-4o-mini", max_tool_call: int = 3
     client = st.session_state.get("client") or OpenAI()
 
     print("==================================")
-    print("🔍 Research Agent")
+    print("🔍 Medical Agent")
     print("==================================")
     tool_calls = 0
     prompt = f"""
-You are a research assistant with 
+You are a medical research assistant with 
 
 Task:
 {task}
@@ -42,15 +42,14 @@ Limit tool calling into {max_tool_call} maximum.
     messages = [
         {"role": "system", "content": """
             You are an expert researcher specialized in gathering academic or technical content. You have access to the following tools:
-            - arxiv_tool: for finding academic papers
-            - tavily_tool: for general web search
-            - wikipedia_tool: for encyclopedic knowledge 
+            - pubmed_search_tool: Searches specifically on PubMed (pubmed.ncbi.nlm.nih.gov) and returns medical research papers and publications.
+            - cochrane_search_tool: Searches specifically on Cochrane Library (cochranelibrary.com) and returns systematic reviews and evidence-based medical information.
             ✅ Make the research concise.
             🚫 DO NOT provde recommendations for the next steps at the end. 
             🚫 DO NOT ask any questions on the next steps at the end.
             """},
         {"role": "user", "content":prompt.strip()}]
-    tools = [research_tools.arxiv_tool_def, research_tools.tavily_tool_def, research_tools.wikipedia_tool_def]
+    tools = [medical_tools.pubmed_tool_def, medical_tools.cochrane_tool_def]
     try:
         response = client.chat.completions.create(
             model=model,

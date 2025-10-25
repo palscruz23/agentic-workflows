@@ -23,9 +23,14 @@ def init_chatbot():
 
     if "client" not in st.session_state:
         st.session_state.client = OpenAI()
-        st.session_state.model = "gpt-5-mini"
+    if "model" not in st.session_state:
+        st.session_state.model = "gpt-4o-mini"
+    if "page" not in st.session_state:
+        st.session_state.page = "researcher"
         # Set the client globally for all agents
         # agents.set_client(st.session_state.client)
+    st.session_state.page = "researcher"
+
 
 def scroll_to_element(element_id):
     """Scroll to a specific element by ID"""
@@ -43,16 +48,17 @@ def scroll_to_element(element_id):
 
 def main():
     init_chatbot()
-    st.title("🔍 Dr. ResearchRx⚕️")
-    st.subheader("Medical researcher that searches credible references while you focus on what matters.")
-    st.markdown("Typical workflow takes 5 minutes.")
-    topic = st.text_input("Enter your medical topic", key="research_topic")
+    st.markdown("<h1 style='text-align: center;'>✍️ Research Assistant ⛺</h1>", 
+            unsafe_allow_html=True)
+    st.subheader("An AI agent that lets you make coffee ☕ while it conducts research, reviews content and generates reports.")
+    st.markdown("Typical workflow takes 5-10 minutes.")
+    topic = st.text_input("Enter your research topic", key="research_topic")
     if topic:
         start_time = time.time()
         with st.spinner("Planning tasks...", show_time=True):
-            steps = planner_agent(topic)
-        executor_history, total_used_token = executor_agent(steps)
-        st.session_state.expanders.write(f"Total Used Tokens: {total_used_token}")
+            steps = planner_agent(topic, page=st.session_state.page)
+        executor_history, total_used_token = executor_agent(steps, page=st.session_state.page)
+        st.session_state.expanders.write(f"Total Tokens Used: {total_used_token}")
         elapsed_time = time.time() - start_time
         st.session_state.expanders.write(f"Total Elapsed Time: {elapsed_time:.2f} seconds")
         st.markdown('<div id="report"></div>', unsafe_allow_html=True)
@@ -61,3 +67,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

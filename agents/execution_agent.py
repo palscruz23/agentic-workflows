@@ -6,39 +6,45 @@ import streamlit as st
 from .research_agent import research_agent
 from .editor_agent import editor_agent
 from .writer_agent import writer_agent
+from .medical_agent import medical_agent
 import time
 from openai import OpenAI
 from dotenv import find_dotenv, load_dotenv
 
 # Load environment variables
 load_dotenv(find_dotenv())
-if "client" not in st.session_state:
-    st.session_state.client = OpenAI()
-# Global client - will be set by parent module
-client = st.session_state.client
-
-agent_registry = {
-    "research_agent": research_agent,
-    "editor_agent": editor_agent,
-    "writer_agent": writer_agent,
-    # puedes agregar más si lo deseas
-}
 
 
+def agent_register(page):
+    if page == "researcher":
+        agent_registry = {
+            "research_agent": research_agent,
+            "editor_agent": editor_agent,
+            "writer_agent": writer_agent,
+        }
+    elif page == "medical":
+        agent_registry = {
+            "medical_agent": medical_agent,
+            "editor_agent": editor_agent,
+            "writer_agent": writer_agent,
+        }
+    return agent_registry
 
 def clean_json_block(raw: str) -> str:
     """
     Clean the contents of a JSON block that may come wrapped with Markdown backticks.
     """
     raw = raw.strip()
-    # Quitar bloque tipo ```json ... ```
     if raw.startswith("```"):
         raw = re.sub(r"^```(?:json)?\n?", "", raw)
         raw = re.sub(r"\n?```$", "", raw)
     return raw.strip()
 
 
-def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
+def executor_agent(plan_steps: list[str], model: str = "gpt-5-mini", page: str = "researcher"):
+    # Get client from session state
+    client = st.session_state.get("client") or OpenAI()
+
     history = []
 
     print("==================================")
@@ -55,14 +61,13 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
             st.session_state.steps[i].write(f"Step {i+1}: {step}")
     
     for i, step in enumerate(plan_steps):
-        # Paso 1: Determinar el agente y la tarea
         agent_decision_prompt = f"""
         You are an execution manager for a multi-agent research team.
         
         Given the following instruction, identify which agent should perform it and extract the clean task.
         
         Return only a valid JSON object with two keys:
-        - "agent": one of ["research_agent", "editor_agent", "writer_agent"]
+        - "agent": one of {list(agent_register(page).keys())}
         - "task": a string with the instruction that the agent should follow
         
         Only respond with a valid JSON object. Do not include explanations or markdown formatting.
@@ -74,7 +79,6 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
             messages=[{"role": "user", "content": agent_decision_prompt}]
             )
         
-        # 🧼 Limpieza del bloque JSON
         raw_content = response.choices[0].message.content
         cleaned_json = clean_json_block(raw_content)
         agent_info = json.loads(cleaned_json)
@@ -82,7 +86,6 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
         agent_name = agent_info["agent"]
         task = agent_info["task"]
 
-        # Paso 2: Construir el contexto con outputs anteriores
         context = "\n".join([
             f"Step {j+1} executed by {a}:\n{r}" 
             for j, (s, a, r) in enumerate(history)
@@ -97,18 +100,18 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
         """
 
         print(f"\n🛠️ Executing with agent: `{agent_name}` on task: {task}")
-
+        agent_registry = agent_register(page)
         if agent_name in agent_registry:
             with st.session_state.steps[i]:
                 start_time = time.time()
                 with st.spinner(f"Executing... ", show_time=True):
-                    output, used_token = agent_registry[agent_name](enriched_task)
+                    output, used_token = agent_registry[agent_name](enriched_task, model=st.session_state.model)
                     history.append((step, agent_name, output))
                     total_used_token += used_token
                     print(f"✅ Agent Used Tokens:\n{used_token}")
                     elapsed_time = time.time() - start_time
                     print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
-                    st.success(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
+                    st.success(f"✅ Completed with {used_token} token used in {elapsed_time:.2f} seconds!")
         else:
             with st.session_state.steps[i]:
                 start_time = time.time()
@@ -119,10 +122,10 @@ def executor_agent(plan_steps: list[str], model: str = "gpt-5-nano"):
                     print(f"✅ Agent Used Tokens:\n{used_token}")
                     elapsed_time = time.time() - start_time
                     print(f"✅ Elapsed Time: {elapsed_time:.2f} seconds")
-                    st.success(f"✅ Completed with {used_token} Used Token in {elapsed_time:.2f} seconds!")
+                    st.success(f"✅ Completed with {used_token} token used in {elapsed_time:.2f} seconds!")
             
     print(f"✅ Output:\n{output}")
-    print(f"✅ Total Used Token:\n{total_used_token}")
+    print(f"✅ Total Tokens Used:\n{total_used_token}")
         
     return history, total_used_token
 
