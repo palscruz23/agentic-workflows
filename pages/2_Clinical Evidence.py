@@ -52,6 +52,7 @@ def main():
             unsafe_allow_html=True)
     st.subheader("Medical researcher that searches credible references while you focus on what matters.")
     st.markdown("Typical workflow takes 2-3 minutes.")
+    st.info("⚕️ This tool is for informational purposes only. Always consult a qualified healthcare professional for medical advice.")
     topic = st.text_input("Enter your medical topic", key="research_topic")
     if topic:
         start_time = time.time()
