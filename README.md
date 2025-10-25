@@ -2,7 +2,7 @@
 title: Agentic Workflows
 emoji: 🤖
 colorFrom: blue
-colorTo: cyan
+colorTo: gray
 sdk: streamlit
 sdk_version: 1.49.1
 app_file: app.py
