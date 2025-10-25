@@ -48,7 +48,7 @@ Each step should be atomic, executable, and must rely only on the capabilities o
 ✅ DO limit the search from few relevant sources.
 ✅ DO assume tool use is available.
 🚫 DO NOT include explanation text — return ONLY the Python list.
-✅ The final step should be to generate a Markdown document containing the complete and concise research report with topic title, introduction, findings, conclusion, references (APA format citation with links). 
+✅ The final step should be to generate a Markdown document containing the complete and concise research report with topic title, introduction, findings, conclusion, references (APA format citation showing full links). 
 🚫 DO NOT ask any questions on the next steps at the end of the final Markdown document.
 
 Topic: "{topic}"
