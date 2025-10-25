@@ -64,6 +64,16 @@ def main():
         st.markdown('<div id="report"></div>', unsafe_allow_html=True)
         st.container(border=True).markdown(executor_history[-1][-1].strip("`"))
         scroll_to_element("report")
-
+    # Sidebar footer - GitHub link at bottom
+    st.sidebar.markdown(
+        """
+        <div class='sidebar-footer'>
+            <a href='https://github.com/palscruz23/agentic-workflows' target='_blank' style='text-decoration: none;'>
+                💻 GitHub Repository
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 if __name__ == "__main__":
     main()

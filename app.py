@@ -207,7 +207,6 @@ def main():
     st.sidebar.markdown(
         """
         <div class='sidebar-footer'>
-            <hr style='margin: 0.5rem 0;'>
             <a href='https://github.com/palscruz23/agentic-workflows' target='_blank' style='text-decoration: none;'>
                 💻 GitHub Repository
             </a>
