@@ -8,12 +8,12 @@ sdk_version: 1.49.1
 app_file: app.py
 pinned: false
 license: mit
-short_description: 'Multi-Agent Systems for different workflows'
+short_description: 'Multi-Agent Systems for Research and Database Analysis'
 ---
 
-# 🤖 Agentic Research Workflow
+# 🤖 Agentic Workflow Platform
 
-An intelligent multi-agent system that automates the entire research process—from planning to execution to report generation. Simply provide a topic, and our AI agents will collaborate to conduct comprehensive research while you focus on what matters.
+An intelligent multi-agent platform providing specialized AI assistants for different workflows—from academic research to medical evidence gathering to database analysis. Choose your assistant and let AI agents handle the complexity while you focus on insights.
 
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/streamlit-1.49.1-red.svg)
@@ -40,7 +40,9 @@ An intelligent multi-agent system that automates the entire research process—f
 
 ## 🏗️ Architecture
 
-The system uses a **5-agent workflow** that works collaboratively:
+### Research Workflows (5-Agent System)
+
+The research assistants use a **5-agent workflow** that works collaboratively:
 
 1. **Planner Agent** - Breaks down research topics into actionable steps
 2. **Research/Medical Agent** - Searches credible databases and sources
@@ -48,15 +50,25 @@ The system uses a **5-agent workflow** that works collaboratively:
 4. **Editor Agent** - Reviews, critiques, and refines content
 5. **Execution Agent** - Orchestrates the entire workflow
 
+### Database Workflow (Text-to-SQL)
+
+The OpenRCA assistant uses an **iterative refinement workflow**:
+
+1. **Database Agent** - Converts natural language questions to SQL queries
+2. **Query Executor** - Runs SQL against the database
+3. **Result Evaluator** - Reviews query results for accuracy
+4. **Query Refiner** - Iteratively improves SQL based on feedback
+5. **Result Interpreter** - Translates data into natural language answers
+
 ## 📱 Applications
 
-The application includes three pages accessible via the Streamlit sidebar:
+The application includes four pages accessible via the Streamlit sidebar:
 
 ### 🏠 **Landing Page**
-- Overview of the agentic workflow system
-- Choose between Research Assistant or Clinical Evidence
+- Overview of the agentic workflow platform
+- Choose between Research Assistant, Clinical Evidence, or OpenRCA
 - Key features and capabilities
-- Navigation to specialized research assistants
+- Navigation to specialized assistants
 
 ### ✍️ **Research Assistant** (General Academic & Scientific)
 
@@ -98,6 +110,35 @@ The application includes three pages accessible via the Streamlit sidebar:
 - Medical condition analysis
 
 **Workflow Time:** 2-3 minutes
+
+### 🔧 **OpenRCA** (Root Cause Analysis Database Assistant)
+
+**Ideal for:**
+- Equipment failure analysis
+- Root cause investigation
+- Corrective action tracking
+- Maintenance data exploration
+
+**Features:**
+- 🗣️ **Natural Language Queries** - Ask questions in plain English
+- 🔄 **Smart SQL Generation** - AI converts questions to accurate SQL
+- ✅ **Iterative Refinement** - Automatically improves query accuracy
+- 📊 **Database Browser** - Interactive table exploration with filtering
+- 📥 **Export Data** - Download filtered results as CSV
+
+**Typical Use Cases:**
+- Finding most expensive failures by equipment/area
+- Identifying common root causes and failure patterns
+- Analyzing downtime and maintenance costs
+- Reviewing corrective actions and their effectiveness
+
+**Database Schema:**
+- Equipment failures with timestamps and costs
+- Root cause analysis records
+- Corrective actions and prevention measures
+- Asset hierarchy (Asset → Area → Equipment)
+
+**Workflow Time:** 1-2 minutes
 
 ## 🚀 Getting Started
 
@@ -196,17 +237,23 @@ agentic-workflow/
 ├── About.py                    # About page with workflow details
 ├── pages/
 │   ├── 1_Research Assistant.py # General academic research
-│   └── 2_Clinical Evidence.py  # Medical research
+│   ├── 2_Clinical Evidence.py  # Medical research
+│   └── 3_OpenRCA.py            # Database assistant for RCA
 ├── agents/
 │   ├── planner_agent.py        # Task planning and decomposition
 │   ├── research_agent.py       # General research (arXiv, Tavily, Wikipedia)
 │   ├── medical_agent.py        # Medical research (PubMed, Cochrane)
 │   ├── writer_agent.py         # Content generation
 │   ├── editor_agent.py         # Content review and refinement
-│   └── execution_agent.py      # Workflow orchestration
+│   ├── execution_agent.py      # Workflow orchestration
+│   └── database_agent.py       # Text-to-SQL with iterative refinement
 ├── tools/
 │   ├── research_tools.py       # arXiv, Tavily, Wikipedia search tools
 │   └── medical_tools.py        # PubMed, Cochrane search tools
+├── utils/
+│   └── database.py             # Database utilities and schema
+├── data/
+│   └── rca_data.db             # SQLite database for RCA
 ├── requirements.txt            # Python dependencies
 ├── Dockerfile                  # Docker image configuration
 ├── docker-compose.yml          # Docker Compose configuration
@@ -260,6 +307,19 @@ if "model" not in st.session_state:
 
 **Output:** Evidence-based medical report with peer-reviewed sources
 
+### Example 3: Database Analysis (OpenRCA)
+
+**Question:** "What are the top 3 most expensive failures?"
+
+**Agent Workflow:**
+1. **Database Agent:** Converts question to SQL query
+2. **Query Executor:** Runs initial SQL query against RCA database
+3. **Result Evaluator:** Reviews if results correctly answer the question
+4. **Query Refiner:** Improves SQL to include relevant columns and fix aggregations
+5. **Result Interpreter:** Translates data into natural language answer
+
+**Output:** "The top 3 most expensive failures are: 1) Mine B Concentrate Storage area with an impact of 3,492,427 AUD due to improper tensioning; 2) Mine A Haul Road area with an impact of 3,344,968 AUD due to software malfunction; and 3) Mine A Water Treatment area with an impact of 3,135,004 AUD due to thermal stress."
+
 ## 🛠️ Development
 
 ### Adding New Tools
@@ -303,9 +363,11 @@ streamlit run app.py
 ```
 
 Navigate to each page to ensure:
-- ✅ Landing page displays correctly
+- ✅ Landing page displays correctly with all three assistants
 - ✅ Research Assistant can search arXiv, Tavily, Wikipedia
 - ✅ Clinical Evidence can search PubMed, Cochrane
+- ✅ OpenRCA can query database and refine SQL queries
+- ✅ OpenRCA database browser can filter and export data
 - ✅ Reports are generated with proper formatting
 
 ## 🐛 Troubleshooting

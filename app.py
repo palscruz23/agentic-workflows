@@ -6,7 +6,7 @@ load_dotenv(find_dotenv())
 
 # Page config
 st.set_page_config(
-    page_title="Agentic Research Workflow",
+    page_title="Agentic Workflow Platform",
     page_icon="🤖",
     layout="centered"
 )
@@ -49,28 +49,33 @@ def main():
         </style>
     """, unsafe_allow_html=True)
     # Hero Section
-    st.markdown("<h1 style='text-align: center;'>🤖 Agentic Research Workflow</h1>",
+    st.markdown("<h1 style='text-align: center;'>🤖 Agentic Workflow Platform</h1>",
                 unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; font-size: 1.2em; color: #666;'>AI-Powered Multi-Agent System for Automated Literature Research</p>",
+    st.markdown("<p style='text-align: center; font-size: 1.2em; color: #666;'>AI-Powered Multi-Agent Platform for Research & Database Analysis</p>",
                 unsafe_allow_html=True)
 
     st.markdown("---")
 
     # Introduction
     st.markdown("""
-    ### Welcome to the Agentic Research Workflow
+    ### Welcome to the Agentic Workflow Platform
 
-    This intelligent multi-agent system automates the entire research process—from planning to execution to report generation.
-    Simply provide a topic, and our AI agents will collaborate to conduct comprehensive research while you focus on what matters.
+    This intelligent multi-agent platform provides specialized AI assistants for different workflows—from academic research
+    to medical evidence gathering to database analysis. Simply choose your assistant and let the AI agents handle the rest.
 
-    **How it works:**
+    **Research Workflows:**
     1. **Planner Agent** - Breaks down your research topic into actionable steps
     2. **Research/Medical Agent** - Searches credible databases and sources
     3. **Writer Agent** - Drafts well-structured summaries and reports
     4. **Editor Agent** - Reviews, critiques, and refines the content
     5. **Execution Agent** - Orchestrates the entire workflow
 
-    Choose your research assistant below to get started:
+    **Database Workflow:**
+    1. **Database Agent** - Converts natural language to SQL queries
+    2. **Query Refinement** - Iteratively improves SQL accuracy
+    3. **Result Interpretation** - Translates data into actionable insights
+
+    Choose your assistant below to get started:
     """)
 
     st.markdown("---")
@@ -162,6 +167,52 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # OpenRCA: Database Assistant
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
+        <h2 style='text-align: center; color: white; margin: 0;'>🔧 OpenRCA</h2>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Root Cause Analysis Database Assistant</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    with st.expander("📊 View Details & Features", expanded=False):
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("""
+            **Ideal for:**
+            - Equipment failure analysis
+            - Root cause investigation
+            - Corrective action tracking
+            - Maintenance data exploration
+
+            **Typical Use Cases:**
+            - Finding most expensive failures
+            - Identifying common failure patterns
+            - Analyzing downtime by equipment
+            - Reviewing corrective actions
+            """)
+
+        with col2:
+            st.markdown("""
+            **Features:**
+            - 🗣️ **Natural Language Queries** - Ask questions in plain English
+            - 🔄 **Smart SQL Generation** - AI converts questions to SQL
+            - 📊 **Database Browser** - Explore tables with filtering
+            - 📥 **Export Data** - Download filtered results as CSV
+
+            **Workflow Time:** 1-2 minutes
+            """)
+
+        st.warning("🔧 Best for analyzing equipment failures and maintenance data")
+        st.markdown("""
+        <div style='text-align: center; margin-top: 15px;'>
+            <p><strong>👉 Navigate to: Pages → OpenRCA</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
+
     st.markdown("---")
 
     # Features section
@@ -199,7 +250,7 @@ def main():
     st.markdown("""
     <div style='text-align: center; padding: 20px; color: #666;'>
         <p><strong>Built with Streamlit | Powered by HuggingFace</strong></p>
-        <p>Navigate using the sidebar to access <strong>Research Assistant</strong> or <strong>Clinical Evidence</strong></p>
+        <p>Navigate using the sidebar to access <strong>Research Assistant</strong>, <strong>Clinical Evidence</strong>, or <strong>OpenRCA</strong></p>
     </div>
     """, unsafe_allow_html=True)
 
