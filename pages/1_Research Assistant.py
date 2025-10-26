@@ -48,10 +48,11 @@ def scroll_to_element(element_id):
 
 def main():
     init_chatbot()
-    st.markdown("<h1 style='text-align: center;'>✍️ Research Assistant ⛺</h1>", 
+    st.markdown("<h1 style='text-align: center;'>✍️ Research Assistant 📓</h1>", 
             unsafe_allow_html=True)
-    st.subheader("An AI agent that lets you make coffee ☕ while it conducts research, reviews content and generates reports.")
-    st.markdown("Typical workflow takes 2-3 minutes.")
+    st.markdown("<h4 style='text-align: center;'>An AI agent that conducts research and generates reports.</h4>",
+                unsafe_allow_html=True)
+    st.info("Typical workflow takes 2-3 minutes.")
     topic = st.text_input("Enter your research topic", key="research_topic")
     if topic:
         start_time = time.time()

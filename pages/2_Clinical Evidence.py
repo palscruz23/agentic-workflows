@@ -50,10 +50,10 @@ def main():
     # st.title("", )
     st.markdown("<h1 style='text-align: center;'>🔍 Dr. ResearchRx⚕️</h1>", 
             unsafe_allow_html=True)
-    st.subheader("Medical researcher that searches credible references while you focus on what matters.")
-    st.markdown("Typical workflow takes 2-3 minutes.")
-    st.info("⚕️ This tool is for informational purposes only. Always consult a qualified healthcare professional for medical advice.")
-    topic = st.text_input("Enter your medical topic", key="research_topic")
+    st.markdown("<h4 style='text-align: center;'>Medical researcher that searches credible references.</h4>",
+                unsafe_allow_html=True)
+    st.info("⚕️ This tool is for informational purposes only. Always consult a qualified healthcare professional for medical advice. Typical workflow takes 2-3 minutes.")
+    topic = st.text_input("Enter your medical topic.", key="research_topic")
     if topic:
         start_time = time.time()
         with st.spinner("Planning tasks...", show_time=True):
