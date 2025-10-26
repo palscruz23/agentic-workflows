@@ -66,7 +66,7 @@ You are an expert SQL reviewer specializing in query optimization and accuracy v
 {sql_error}
 
 ## YOUR TASK
-Analyze whether the SQL query correctly and completely answers the user's question. Include other columns which may be relevant to the question. When aggregations are used, make sure there are no duplications in the RCA information.
+Analyze whether the SQL query correctly and completely answers the user's question. Include other columns which may be relevant to the question. When aggregations are used, make sure there are no duplications in the RCA ID.
 
 Step 1: Briefly evaluate if the SQL output answers the user's question. 
 Step 2: If the SQL could be improved, provide a refined SQL query. If SQL Error is not None, rectify the issues in the refined query.
