@@ -57,7 +57,7 @@ You are an expert SQL reviewer specializing in query optimization and accuracy v
 ```
 
 **Query Results:**
-{df.to_markdown(index=False)}
+{df.to_string(index=False)}
 
 **Table Schema:**
 {schema}
