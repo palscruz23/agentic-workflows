@@ -48,10 +48,12 @@ def scroll_to_element(element_id):
 def main():
     init_chatbot()
     # st.title("", )
-    st.markdown("<h1 style='text-align: center;'>🔍 Dr. ResearchRx⚕️</h1>", 
-            unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center;'>Medical researcher that searches credible references.</h4>",
-                unsafe_allow_html=True)
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
+        <h1 style='text-align: center; color: white; margin: 0;'>🔍 Dr. ResearchRx⚕️</h1>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Medical researcher that searches credible references</p>
+    </div>
+    """, unsafe_allow_html=True)
     st.info("⚕️ This tool is for informational purposes only. Always consult a qualified healthcare professional for medical advice. Typical workflow takes 2-3 minutes.")
     topic = st.text_input("Enter your medical topic.", key="research_topic")
     if topic:

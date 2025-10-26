@@ -195,10 +195,12 @@ def main():
     init_chatbot()
 
     # Page header
-    st.markdown("<h1 style='text-align: center;'>🔧OpenRCA📖</h1>",
-                unsafe_allow_html=True)
-    st.markdown("<h4 style='text-align: center;'>Ask questions about equipment failures from RCA database.</h4>",
-                unsafe_allow_html=True)
+    st.markdown("""
+    <div style='background: linear-gradient(135deg, #D24726 0%, #ff8c42 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
+        <h1 style='text-align: center; color: white; margin: 0;'>🔧OpenRCA📖</h1>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Ask questions about equipment failures from RCA database</p>
+    </div>
+    """, unsafe_allow_html=True)
     # Info box
     st.info("This chatbot uses with Text-to-SQL tools to query the RCA (Root Cause Analysis) synthetic database. Typical workflow takes 1-2 minutes.")
 

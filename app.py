@@ -83,8 +83,8 @@ def main():
     # Research Assistant 1: General Research
     st.markdown("""
     <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
-        <h2 style='text-align: center; color: white; margin: 0;'>✍️ Research Assistant</h2>
-        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>General Academic & Scientific Research</p>
+        <h1 style='text-align: center; color: white; margin: 0;'>✍️Research Assistant📓</h1>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>AI agent that conducts research and generates reports.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -128,8 +128,8 @@ def main():
     # Research Assistant 2: Medical Research
     st.markdown("""
     <div style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
-        <h2 style='text-align: center; color: white; margin: 0;'>🔍 Dr. ResearchRx</h2>
-        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Evidence-Based Medical Research</p>
+        <h1 style='text-align: center; color: white; margin: 0;'>🔍 Dr. ResearchRx⚕️</h1>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Medical researcher that searches credible references</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -171,9 +171,9 @@ def main():
 
     # OpenRCA: Database Assistant
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #ff8c42 0%, #ffd700 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
-        <h2 style='text-align: center; color: white; margin: 0;'>🔧 OpenRCA</h2>
-        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Root Cause Analysis Database Assistant</p>
+    <div style='background: linear-gradient(135deg, #D24726 0%, #ff8c42 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
+        <h1 style='text-align: center; color: white; margin: 0;'>🔧OpenRCA📖</h1>
+        <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Ask questions about equipment failures from RCA database</p>
     </div>
     """, unsafe_allow_html=True)
 
