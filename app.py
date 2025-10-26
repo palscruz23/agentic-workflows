@@ -171,7 +171,7 @@ def main():
 
     # OpenRCA: Database Assistant
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
+    <div style='background: linear-gradient(135deg, #ff8c42 0%, #ffd700 100%); padding: 25px; border-radius: 10px; color: white; margin-bottom: 15px;'>
         <h2 style='text-align: center; color: white; margin: 0;'>🔧 OpenRCA</h2>
         <p style='text-align: center; margin: 5px 0 0 0; opacity: 0.9;'>Root Cause Analysis Database Assistant</p>
     </div>
