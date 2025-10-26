@@ -202,7 +202,7 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     # Info box
-    st.info("This chatbot uses with Text-to-SQL tools to query the RCA (Root Cause Analysis) synthetic database. Typical workflow takes 1-2 minutes.")
+    st.info("This chatbot uses with Text-to-SQL tools to query the RCA (Root Cause Analysis) synthetic database. Typical workflow takes 20-40 seconds.")
 
     # Sidebar
     with st.sidebar:

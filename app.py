@@ -203,7 +203,7 @@ def main():
             - 📊 **Database Browser** - Explore tables with filtering
             - 📥 **Export Data** - Download filtered results as CSV
 
-            **Workflow Time:** 1-2 minutes
+            **Workflow Time:** 20-40 seconds.
             """)
 
         st.warning("🔧 Best for analyzing equipment failures and maintenance data")
