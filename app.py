@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from dotenv import find_dotenv, load_dotenv
 
 # Load environment variables
@@ -10,6 +11,143 @@ st.set_page_config(
     page_icon="🤖",
     layout="centered"
 )
+
+def render_mermaid(mermaid_code, height=400, center=False):
+    """Render mermaid diagram using HTML and mermaid.js"""
+    center_style = ""
+    if center:
+        center_style = """
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+                padding: 20px;
+                min-height: 100%;
+            }
+            .mermaid {
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+        """
+
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({{ startOnLoad: true, theme: 'default' }});
+        </script>
+        {center_style}
+    </head>
+    <body>
+        <div class="mermaid">
+{mermaid_code}
+        </div>
+    </body>
+    </html>
+    """
+    components.html(html_code, height=height, scrolling=True)
+
+@st.dialog("Research Assistant Workflow", width="large")
+def show_research_diagram():
+    mermaid_code = """
+flowchart TD
+    Start([User Topic]) --> Planner[Planner Agent<br/>Generate 5 Steps]
+    Planner --> Executor[Executor Agent]
+
+    Executor --> |Route Step|Research[Research Agent<br/>arXiv, Tavily, Wikipedia]
+    Executor --> |Route Step|Writer[Writer Agent<br/>Draft Content]
+    Executor --> |Route Step|Editor[Editor Agent<br/>Refine Content]
+
+    Research --> Context[Context Storage]
+    Writer --> Context
+    Editor --> Context
+
+    Context --> Loop{More<br/>Steps?}
+    Loop --> |Yes|Executor
+    Loop --> |No|Report[Final Report]
+    Report --> End([Display])
+
+    style Start fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style End fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style Planner fill:#87CEEB,stroke:#333,stroke-width:2px,color:#000
+    style Executor fill:#FFB347,stroke:#333,stroke-width:2px,color:#000
+    style Research fill:#DDA0DD,stroke:#333,stroke-width:2px,color:#000
+    style Writer fill:#F0A0C0,stroke:#333,stroke-width:2px,color:#000
+    style Editor fill:#C9A0DC,stroke:#333,stroke-width:2px,color:#000
+    style Report fill:#98FB98,stroke:#333,stroke-width:2px,color:#000
+    """
+    render_mermaid(mermaid_code, height=600)
+    st.caption("Multi-agent orchestration pattern: Planner → Executor → Specialized Agents → Context Accumulation → Final Report")
+
+@st.dialog("Clinical Evidence Workflow", width="large")
+def show_clinical_diagram():
+    mermaid_code = """
+flowchart TD
+    Start([Medical Topic]) --> Planner[Planner Agent<br/>Generate 5 Steps]
+    Planner --> Executor[Executor Agent]
+
+    Executor --> |Route Step|Medical[Medical Agent<br/>PubMed, Cochrane]
+    Executor --> |Route Step|Writer[Writer Agent<br/>Draft Content]
+    Executor --> |Route Step|Editor[Editor Agent<br/>Refine Content]
+
+    Medical --> Context[Context Storage]
+    Writer --> Context
+    Editor --> Context
+
+    Context --> Loop{More<br/>Steps?}
+    Loop --> |Yes|Executor
+    Loop --> |No|Report[Clinical Report]
+    Report --> End([Display])
+
+    style Start fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style End fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style Planner fill:#87CEEB,stroke:#333,stroke-width:2px,color:#000
+    style Executor fill:#FFB347,stroke:#333,stroke-width:2px,color:#000
+    style Medical fill:#FF69B4,stroke:#333,stroke-width:2px,color:#000
+    style Writer fill:#F0A0C0,stroke:#333,stroke-width:2px,color:#000
+    style Editor fill:#C9A0DC,stroke:#333,stroke-width:2px,color:#000
+    style Report fill:#98FB98,stroke:#333,stroke-width:2px,color:#000
+    """
+    render_mermaid(mermaid_code, height=600)
+    st.caption("Multi-agent orchestration pattern with medical-specific data sources")
+
+@st.dialog("OpenRCA Database Workflow", width="large")
+def show_openrca_diagram():
+    mermaid_code = """
+flowchart TD
+    Start([User Query]) --> DB[Load Database<br/>& Schema]
+    DB --> Gen1[Generate SQL V1]
+    Gen1 --> Exec1[Execute V1]
+
+    Exec1 --> Eval{Evaluate<br/>Correctness}
+    Eval --> |Needs Improvement|Refine[Refine SQL V2]
+    Eval --> |Correct|Interpret
+
+    Refine --> Exec2[Execute V2]
+    Exec2 --> Interpret[Interpret Results]
+
+    Interpret --> Success{Success?}
+    Success --> |No & < 5 attempts|Eval
+    Success --> |Yes|Answer[Natural Language<br/>Answer]
+
+    Answer --> End([Display + SQL Details])
+
+    style Start fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style End fill:#90EE90,stroke:#333,stroke-width:2px,color:#000
+    style DB fill:#87CEEB,stroke:#333,stroke-width:2px,color:#000
+    style Gen1 fill:#FFD700,stroke:#333,stroke-width:2px,color:#000
+    style Eval fill:#DDA0DD,stroke:#333,stroke-width:2px,color:#000
+    style Refine fill:#FFB347,stroke:#333,stroke-width:2px,color:#000
+    style Interpret fill:#98FB98,stroke:#333,stroke-width:2px,color:#000
+    style Answer fill:#87CEEB,stroke:#333,stroke-width:2px,color:#000
+    """
+    render_mermaid(mermaid_code, height=600, center=True)
+    st.caption("Iterative refinement pattern: Generate SQL → Execute → Evaluate → Refine → Interpret → Answer (Loop until success or max 5 attempts)")
 
 def main():
     # Custom CSS for landing page - wider and responsive
@@ -117,6 +255,10 @@ def main():
             """)
 
         st.info("💡 Best for broad academic topics across multiple disciplines")
+
+        if st.button("📊 View Workflow Diagram", key="research_diagram"):
+            show_research_diagram()
+
         st.markdown("""
         <div style='text-align: center; margin-top: 15px;'>
             <p><strong>👉 Navigate to: Pages → Research Assistant</strong></p>
@@ -161,6 +303,10 @@ def main():
             """)
 
         st.success("⚕️ Best for medical, clinical, and healthcare topics")
+
+        if st.button("📊 View Workflow Diagram", key="clinical_diagram"):
+            show_clinical_diagram()
+
         st.markdown("""
         <div style='text-align: center; margin-top: 15px;'>
             <p><strong>👉 Navigate to: Pages → Clinical Evidence</strong></p>
@@ -207,6 +353,10 @@ def main():
             """)
 
         st.warning("🔧 Best for analyzing equipment failures and maintenance data")
+
+        if st.button("📊 View Workflow Diagram", key="openrca_diagram"):
+            show_openrca_diagram()
+
         st.markdown("""
         <div style='text-align: center; margin-top: 15px;'>
             <p><strong>👉 Navigate to: Pages → OpenRCA</strong></p>
